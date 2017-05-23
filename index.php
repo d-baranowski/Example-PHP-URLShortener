@@ -1,6 +1,8 @@
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT']. '.\vendor\autoload.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'.\vendor\autoload.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'\src\framework\SimpleDependencyResolver.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '.\src\framework\ParsedRequest.php';
+    use net\devtales\framework\ParsedRequest;
     use net\devtales\framework\SimpleDependencyResolver;
 
 
@@ -9,21 +11,16 @@
     // Holds data like $baseUrl etc.
     $configs = include 'config.php';
 
-    $requestUrl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-    $requestString = $_SERVER['REQUEST_URI'];
 
-    $urlParams = explode('/', $requestString);
+    $req = new ParsedRequest($_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);
 
-    $endpoint = ucfirst(array_shift($urlParams)).'index';
-    $actionName = strtolower(array_shift($urlParams)).'base';
-    $controllerName = ucfirst ( strtolower($endpoint)) . 'Controller';
-
-    if ($container->hasDependency($controllerName))
+    if ($container->hasDependency($req->controller))
     {
-        $controller = $container->get($controllerName);
-        if (method_exists ($controller, $actionName))
+        $controller = $container->get($req->controller);
+        if (method_exists ($controller, $req->action))
         {
-            $controller->$actionName();
+            $action = $req->action;
+            $controller->$action($req->query);
             return;
         }
     }

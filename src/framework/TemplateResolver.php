@@ -5,7 +5,6 @@
      * @category Template_Resolver
      * @package  Framework
      * @author   Daniel Baranowski <d.baranowski@devtales.net>
-     * @license  https://opensource.org/licenses/MIT MIT
      * @link     https://github.com/d-baranowski/Example-PHP-URLShortener repo
      */
 

@@ -5,7 +5,6 @@
      * @category Dependency_Resolver
      * @package  Framework
      * @author   Daniel Baranowski <d.baranowski@devtales.net>
-     * @license  https://opensource.org/licenses/MIT MIT
      * @link     https://github.com/d-baranowski/Example-PHP-URLShortener repo
      */
 
@@ -13,7 +12,9 @@
 
     require_once $_SERVER['DOCUMENT_ROOT'].'\src\framework\TemplateResolver.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'\src\controllers\IndexController.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'\src\controllers\ShortenController.php';
     use net\devtales\controllers\IndexController;
+    use net\devtales\controllers\ShortenController;
     use Twig_Environment;
     use Twig_Loader_Filesystem;
 
@@ -36,6 +37,9 @@ class SimpleDependencyResolver
             },
             'IndexController' => function () {
                 return new IndexController($this->get("TemplateResolver"));
+            },
+            'ShortenController' => function() {
+                return new ShortenController();
             }
         );
     }

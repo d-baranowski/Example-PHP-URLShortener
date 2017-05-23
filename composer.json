@@ -5,9 +5,11 @@
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "*",
-    "phpstan/phpstan": "^0.7.0"
+    "phpstan/phpstan": "^0.7.0",
+    "phpunit/phpunit": "6.1"
   },
   "scripts": {
-    "fix": ".\\vendor\\bin\\phpcbf src index.php config.php"
+    "fix": ".\\vendor\\bin\\phpcbf src index.php config.php",
+    "test": ".\\vendor\\bin\\phpunit.bat tests"
   }
 }

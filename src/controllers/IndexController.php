@@ -5,7 +5,6 @@
      * @category View_Controller
      * @package  Controllers
      * @author   Daniel Baranowski <d.baranowski@devtales.net>
-     * @license  https://opensource.org/licenses/MIT MIT
      * @link     https://github.com/d-baranowski/Example-PHP-URLShortener repo
      */
 
