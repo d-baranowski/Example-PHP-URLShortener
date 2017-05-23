@@ -1,9 +1,12 @@
 <?php
     /**
-     * Created by PhpStorm.
-     * User: Daniel
-     * Date: 23/05/2017
-     * Time: 14:08
+     * PHP Version 7
+     *
+     * @category View_Controller
+     * @package  Controllers
+     * @author   Daniel Baranowski <d.baranowski@devtales.net>
+     * @license  https://opensource.org/licenses/MIT MIT
+     * @link     https://github.com/d-baranowski/Example-PHP-URLShortener repo
      */
 
     namespace net\devtales\controllers;
@@ -11,36 +14,35 @@
 
     require_once $_SERVER['DOCUMENT_ROOT'] .'\vendor\autoload.php';
 
+class IndexController
+{
+    private $_templateResolver;
 
-    class IndexController
+    public function __construct(TemplateResolver $templateResolver)
     {
-        private $templateResolver;
-
-        public function __construct(TemplateResolver $templateResolver)
-        {
-            $this->templateResolver = $templateResolver;
-        }
-
-        public function base()
-        {
-             $params = array(
-                'name' => 'Krzysztof',
-                'friends' => array(
-                    array(
-                        'firstname' => 'John',
-                        'lastname' => 'Smith'
-                    ),
-                    array(
-                        'firstname' => 'Britney',
-                        'lastname' => 'Spears'
-                    ),
-                    array(
-                        'firstname' => 'Brad',
-                        'lastname' => 'Pitt'
-                    )
-                )
-            );
-
-            $this->templateResolver->resolve('hello.phtml', $params);
-        }
+        $this->_templateResolver = $templateResolver;
     }
+
+    public function base()
+    {
+         $params = array(
+            'name' => 'Krzysztof',
+            'friends' => array(
+                array(
+                    'firstname' => 'John',
+                    'lastname' => 'Smith'
+                ),
+                array(
+                    'firstname' => 'Britney',
+                    'lastname' => 'Spears'
+                ),
+                array(
+                    'firstname' => 'Brad',
+                    'lastname' => 'Pitt'
+                )
+            )
+        );
+
+        $this->_templateResolver->display('index.twig', $params);
+    }
+}

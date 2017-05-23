@@ -2,5 +2,12 @@
   "require": {
     "doctrine/orm": "2.4.*",
     "twig/twig": "^2.0"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "*",
+    "phpstan/phpstan": "^0.7.0"
+  },
+  "scripts": {
+    "fix": ".\\vendor\\bin\\phpcbf src index.php config.php"
   }
 }

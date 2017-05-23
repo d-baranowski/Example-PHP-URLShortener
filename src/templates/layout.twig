@@ -1,0 +1,40 @@
+<html>
+<head>
+  <title>{% block title %}{% endblock %} - URL Shortener</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-inverse fixed-top bg-inverse">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Navbar</a>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="jumbotron">
+    <div class="container">
+      <h1>URL Shortener!</h1>
+      <p>This is a simple example of a URL Shortener developed in PHP 7</p>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      {%block body %}{%endblock%}
+    </div>
+
+    <hr>
+
+    <footer>
+      <p>© Daniel Baranowski 2017</p>
+    </footer>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

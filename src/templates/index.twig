@@ -1,6 +1,6 @@
-<html>
-<head><title>My first Twig template!</title></head>
-<body>
+{% extends "layout.twig" %}
+
+{% block body %}
 My name is {{ name }}.
 My friends are:
 <ul>
@@ -8,5 +8,4 @@ My friends are:
     <li>{{ person.firstname}} {{ person.lastname }}</li>
     {% endfor %}
 </ul>
-</body>
-</html>
+{%endblock%}
