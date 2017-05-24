@@ -8,8 +8,17 @@
 
     namespace net\devtales\framework;
 
-
-    class SimpleResponseResolver
+    interface iSimpleResponseResolver
     {
+        public function resolve(SimpleResponse $response);
+    }
 
+    class SimpleResponseResolver implements iSimpleResponseResolver
+    {
+        public function resolve(SimpleResponse $response)
+        {
+            header('Content-Type: '.$response->type);
+            http_response_code($response->code);
+            echo $response->body;
+        }
     }

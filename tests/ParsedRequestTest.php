@@ -30,7 +30,7 @@
         {
             try 
             {
-                $req = new ParsedRequest(NULL, NULL);
+                new ParsedRequest(NULL, NULL);
             } catch (InvalidArgumentException $e)
             {
                 $this->assertTrue($e->getMessage() == 'Host or URI cannot be null.');

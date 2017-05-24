@@ -10,6 +10,7 @@
 
     namespace net\devtales\framework;
 
+    require_once $_SERVER['DOCUMENT_ROOT'].'\src\framework\SimpleResponseResolver.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'\src\framework\TemplateResolver.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'\src\controllers\IndexController.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'\src\controllers\ShortenController.php';
@@ -35,11 +36,14 @@ class SimpleDependencyResolver
             'TemplateResolver' => function () {
                 return new TemplateResolver($this->get("Twig"));
             },
+            'ResponseResolver' => function() {
+                return new SimpleResponseResolver();
+            },
             'IndexController' => function () {
                 return new IndexController($this->get("TemplateResolver"));
             },
             'ShortenController' => function() {
-                return new ShortenController();
+                return new ShortenController($this->get("ResponseResolver"));
             }
         );
     }

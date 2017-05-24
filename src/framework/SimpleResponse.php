@@ -11,5 +11,14 @@
 
     class SimpleResponse
     {
+        public $body;
+        public $type;
+        public $code;
 
+        public function __construct($body, $code = 200, $type = 'plain/text')
+        {
+            $this->body = $body;
+            $this->code = $code;
+            $this->type = $type;
+        }
     }
