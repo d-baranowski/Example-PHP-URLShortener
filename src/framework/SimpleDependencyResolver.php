@@ -10,12 +10,12 @@
 
     namespace net\devtales\framework;
 
-    require_once $_SERVER['DOCUMENT_ROOT'] .'\vendor\autoload.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'\src\framework\SimpleResponseResolver.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'\src\framework\SimpleResponse.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'\src\framework\TemplateResolver.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'\src\controllers\IndexController.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'\src\controllers\ShortenController.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/src/framework/SimpleResponseResolver.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/src/framework/SimpleResponse.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/src/framework/TemplateResolver.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/src/controllers/IndexController.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/src/controllers/ShortenController.php';
 
     use net\devtales\controllers\IndexController;
     use net\devtales\controllers\ShortenController;
@@ -29,7 +29,7 @@ class SimpleDependencyResolver
     {
         $this->_dependencyBuilders = array(
             'Twig' => function () {
-                $loader = new Twig_Loader_Filesystem($_SERVER['DOCUMENT_ROOT'].'\src\templates');
+                $loader = new Twig_Loader_Filesystem($_SERVER['DOCUMENT_ROOT'].'/src/templates');
                 return new Twig_Environment(
                     $loader, array(
                     //'cache' => '/tmp/cache',

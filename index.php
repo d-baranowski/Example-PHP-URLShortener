@@ -1,7 +1,7 @@
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT'].'.\vendor\autoload.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'\src\framework\SimpleDependencyResolver.php';
-    require_once $_SERVER['DOCUMENT_ROOT'] . '.\src\framework\ParsedRequest.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/src/framework/SimpleDependencyResolver.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/src/framework/ParsedRequest.php';
     use net\devtales\framework\ParsedRequest;
     use net\devtales\framework\SimpleDependencyResolver;
 
