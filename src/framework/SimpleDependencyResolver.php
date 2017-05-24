@@ -10,24 +10,48 @@
 
     namespace net\devtales\framework;
 
-    require_once $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/src/framework/SimpleResponseResolver.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/src/framework/SimpleResponse.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/src/framework/TemplateResolver.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/src/controllers/IndexController.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/src/controllers/ShortenController.php';
+    $PROJECT_ROOT = ($_SERVER['DOCUMENT_ROOT'] ?: '.');
+    require_once $PROJECT_ROOT.'/vendor/autoload.php';
+    require_once $PROJECT_ROOT.'/src/framework/SimpleResponseResolver.php';
+    require_once $PROJECT_ROOT.'/src/framework/SimpleResponse.php';
+    require_once $PROJECT_ROOT.'/src/framework/TemplateResolver.php';
+    require_once $PROJECT_ROOT.'/src/controllers/IndexController.php';
+    require_once $PROJECT_ROOT.'/src/controllers/ShortenController.php';
 
     use net\devtales\controllers\IndexController;
     use net\devtales\controllers\ShortenController;
     use Twig_Environment;
     use Twig_Loader_Filesystem;
+    use Doctrine\ORM\Tools\Setup;
+    use Doctrine\ORM\EntityManager;
+    use Doctrine\DBAL\DriverManager;
 
 class SimpleDependencyResolver
 {
     private $_dependencyBuilders;
     public function __construct()
     {
+        global $PROJECT_ROOT;
         $this->_dependencyBuilders = array(
+            'EntityManager' => function() use ($PROJECT_ROOT)
+            {
+                $isDevMode = true;
+                $config = Setup::createAnnotationMetadataConfiguration(
+                    array($PROJECT_ROOT."/src/entities"),
+                    $isDevMode
+                );
+
+                $connParams = array(
+                    'dbname' => 'urlshortener',
+                    'user' => $_SERVER['URL_SHORTENER_DB_USER'],
+                    'password' => $_SERVER['URL_SHORTENER_DB_PASSWORD'],
+                    'host' => 'localhost',
+                    'driver' => 'pdo_mysql'
+                );
+
+                $conn = DriverManager::getConnection($connParams, $config);
+                return EntityManager::create($conn, $config);
+            },
             'Twig' => function () {
                 $loader = new Twig_Loader_Filesystem($_SERVER['DOCUMENT_ROOT'].'/src/templates');
                 return new Twig_Environment(
