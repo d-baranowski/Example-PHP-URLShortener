@@ -7,7 +7,8 @@
      */
 
     namespace net\devtales\framework;
-    require_once
+
+    use InvalidArgumentException;
 
     class ParsedRequest
     {
@@ -17,6 +18,11 @@
 
         public function __construct($host, $uri)
         {
+            if ($host == NULL || $uri == NULL)
+            {
+                throw new InvalidArgumentException('Host or URI cannot be null.');
+            }
+
             $requestUrl = 'http://'.$host.$uri;
             $parsedUrl = parse_url($requestUrl);
             $urlParams = explode('/', $parsedUrl['path']);
