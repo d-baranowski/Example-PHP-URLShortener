@@ -5,11 +5,11 @@
      **/
     class UrlMap
     {
-        /** @Id @Column(type="integer") @GeneratedValue **/
+        /** @Id @Column(type="integer", name="id") @GeneratedValue **/
         protected $id;
-        /** @Column(type="string") **/
+        /** @Column(type="string", name="longUrl", length=100, unique=true, nullable=false) **/
         protected $longUrl;
-        /** @Column(type="string") **/
+        /** @Column(type="string", name="shortUrl", length=20, unique=true, nullable=false) **/
         protected $shortUrl;
 
         /**

@@ -10,12 +10,13 @@
 
     use net\devtales\framework\iSimpleResponseResolver;
     use net\devtales\framework\SimpleResponse;
+    use net\devtales\repositories\iUrlMapRepository;
 
 
     class ShortenController
     {
         private $resolver;
-        public function __construct(iSimpleResponseResolver $resolver)
+        public function __construct(iSimpleResponseResolver $resolver, iUrlMapRepository $repository)
         {
             $this->resolver = $resolver;
         }

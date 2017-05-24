@@ -20,6 +20,7 @@
 
     use net\devtales\controllers\IndexController;
     use net\devtales\controllers\ShortenController;
+    use net\devtales\repositories\UrlMapRepository;
     use Twig_Environment;
     use Twig_Loader_Filesystem;
     use Doctrine\ORM\Tools\Setup;
@@ -52,11 +53,15 @@ class SimpleDependencyResolver
                 $conn = DriverManager::getConnection($connParams, $config);
                 return EntityManager::create($conn, $config);
             },
+            'UrlMapRepository' => function()
+            {
+                return new UrlMapRepository($this->get('EntityManager'));
+            },
             'Twig' => function () {
                 $loader = new Twig_Loader_Filesystem($_SERVER['DOCUMENT_ROOT'].'/src/templates');
                 return new Twig_Environment(
                     $loader, array(
-                    //'cache' => '/tmp/cache',
+                    //'cache' => '/tmp/cache', Enable in production
                     )
                 );
             },
@@ -70,7 +75,7 @@ class SimpleDependencyResolver
                 return new IndexController($this->get("TemplateResolver"));
             },
             'ShortenController' => function() {
-                return new ShortenController($this->get("ResponseResolver"));
+                return new ShortenController($this->get("ResponseResolver"), $this->get('EntityManager'));
             }
         );
     }
