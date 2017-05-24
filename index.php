@@ -8,11 +8,9 @@
 
     $container = new SimpleDependencyResolver();
 
-    // Holds data like $baseUrl etc.
-    $configs = include 'config.php';
-
-
     $req = new ParsedRequest($_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);
+
+    $container->get('ShortUrlRedirect')->redirectIfShortUrlExits($_SERVER['REQUEST_URI']);
 
     if ($container->hasDependency($req->controller))
     {

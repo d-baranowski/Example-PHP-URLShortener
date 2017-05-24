@@ -7,13 +7,15 @@
      */
 
     namespace net\devtales\logic;
+    use net\devtales\repositories\iUrlMapRepository;
+    use PHPStan\ShouldNotHappenException;
 
     interface iShortUrlGenerator
     {
         public function getShort($long, $i = 0);
     }
 
-    class ShortUrlGenerator
+    class ShortUrlGenerator implements iShortUrlGenerator
     {
         private $repository;
         private $host;
@@ -38,5 +40,3 @@
             return $shortUrl;
         }
     }
-    use net\devtales\repositories\iUrlMapRepository;
-    use PHPStan\ShouldNotHappenException;

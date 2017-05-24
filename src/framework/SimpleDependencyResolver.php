@@ -20,10 +20,12 @@
     require_once $PROJECT_ROOT.'/src/controllers/ShortenController.php';
     require_once $PROJECT_ROOT.'/src/entities/UrlMap.php';
     require_once $PROJECT_ROOT.'/src/logic/ShortUrlGenerator.php';
+    require_once $PROJECT_ROOT.'/src/logic/ShortUrlRedirect.php';
 
     use net\devtales\controllers\IndexController;
     use net\devtales\controllers\ShortenController;
     use net\devtales\logic\ShortUrlGenerator;
+    use net\devtales\logic\ShortUrlRedirect;
     use net\devtales\repositories\UrlMapRepository;
     use Twig_Environment;
     use Twig_Loader_Filesystem;
@@ -73,17 +75,26 @@ class SimpleDependencyResolver
                     )
                 );
             },
-            'TemplateResolver' => function () {
+            'TemplateResolver' => function() {
                 return new TemplateResolver($this->get("Twig"));
             },
             'ResponseResolver' => function() {
                 return new SimpleResponseResolver();
             },
-            'IndexController' => function () {
+            'IndexController' => function() {
                 return new IndexController($this->get("TemplateResolver"));
             },
             'ShortenController' => function() {
-                return new ShortenController($this->get("ResponseResolver"), $this->get('UrlMapRepository'));
+                return new ShortenController(
+                    $this->get("ResponseResolver"),
+                    $this->get('UrlMapRepository'),
+                    $this->get('ShortUrlGenerator'));
+            },
+            'ShortUrlRedirect' => function() {
+                return new ShortUrlRedirect(
+                    $this->get('UrlMapRepository'),
+                    $_SERVER['HTTP_HOST'],
+                    'http://');
             }
         );
     }
