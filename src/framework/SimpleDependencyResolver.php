@@ -12,14 +12,18 @@
 
     $PROJECT_ROOT = ($_SERVER['DOCUMENT_ROOT'] ?: '.');
     require_once $PROJECT_ROOT.'/vendor/autoload.php';
+    require_once $PROJECT_ROOT.'/src/repositories/UrlMapRepository.php';
     require_once $PROJECT_ROOT.'/src/framework/SimpleResponseResolver.php';
     require_once $PROJECT_ROOT.'/src/framework/SimpleResponse.php';
     require_once $PROJECT_ROOT.'/src/framework/TemplateResolver.php';
     require_once $PROJECT_ROOT.'/src/controllers/IndexController.php';
     require_once $PROJECT_ROOT.'/src/controllers/ShortenController.php';
+    require_once $PROJECT_ROOT.'/src/entities/UrlMap.php';
+    require_once $PROJECT_ROOT.'/src/logic/ShortUrlGenerator.php';
 
     use net\devtales\controllers\IndexController;
     use net\devtales\controllers\ShortenController;
+    use net\devtales\logic\ShortUrlGenerator;
     use net\devtales\repositories\UrlMapRepository;
     use Twig_Environment;
     use Twig_Loader_Filesystem;
@@ -44,8 +48,8 @@ class SimpleDependencyResolver
 
                 $connParams = array(
                     'dbname' => 'urlshortener',
-                    'user' => $_SERVER['URL_SHORTENER_DB_USER'],
-                    'password' => $_SERVER['URL_SHORTENER_DB_PASSWORD'],
+                    'user' => (getenv('URL_SHORTENER_DB_USER') ?: $_SERVER['URL_SHORTENER_DB_USER']),
+                    'password' => (getenv('URL_SHORTENER_DB_PASSWORD') ?: $_SERVER['URL_SHORTENER_DB_PASSWORD']),
                     'host' => 'localhost',
                     'driver' => 'pdo_mysql'
                 );
@@ -56,6 +60,10 @@ class SimpleDependencyResolver
             'UrlMapRepository' => function()
             {
                 return new UrlMapRepository($this->get('EntityManager'));
+            },
+            'ShortUrlGenerator' => function()
+            {
+                return new ShortUrlGenerator($this->get('UrlMapRepository'), $_SERVER['HTTP_HOST']);
             },
             'Twig' => function () {
                 $loader = new Twig_Loader_Filesystem($_SERVER['DOCUMENT_ROOT'].'/src/templates');
@@ -75,7 +83,7 @@ class SimpleDependencyResolver
                 return new IndexController($this->get("TemplateResolver"));
             },
             'ShortenController' => function() {
-                return new ShortenController($this->get("ResponseResolver"), $this->get('EntityManager'));
+                return new ShortenController($this->get("ResponseResolver"), $this->get('UrlMapRepository'));
             }
         );
     }

@@ -8,15 +8,18 @@
 
     namespace net\devtales\repositories;
 
+    use Doctrine\ORM\EntityManagerInterface;
+    use UrlMap;
+
     interface iUrlMapRepository
     {
         public function save(UrlMap $map);
         public function getAll();
         public function findByLong($longUrl);
+        public function findByShort($shortUrl);
     }
 
-    use Doctrine\ORM\EntityManagerInterface;
-    use UrlMap;
+
 
     class UrlMapRepository implements iUrlMapRepository
     {
@@ -28,11 +31,12 @@
             $this->repository = $entityManager->getRepository('UrlMap');
         }
 
-        public function save(UrlMap $map)
+        public function save(UrlMap $map) : UrlMap
         {
             $this->entityManager->persist($map);
             $this->entityManager->flush();
-            return $map->getId();
+
+            return $map;
         }
 
         public function getAll()

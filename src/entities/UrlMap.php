@@ -7,9 +7,9 @@
     {
         /** @Id @Column(type="integer", name="id") @GeneratedValue **/
         protected $id;
-        /** @Column(type="string", name="longUrl", length=100, unique=true, nullable=false) **/
+        /** @Column(type="string", name="longUrl", length=999, unique=true, nullable=false) **/
         protected $longUrl;
-        /** @Column(type="string", name="shortUrl", length=20, unique=true, nullable=false) **/
+        /** @Column(type="string", name="shortUrl", length=100, unique=true, nullable=false) **/
         protected $shortUrl;
 
         /**
