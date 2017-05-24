@@ -1,4 +1,7 @@
 {
+  "config": {
+    "process-timeout": 0
+  },
   "require": {
     "doctrine/orm": "2.4.*",
     "twig/twig": "^2.0"
@@ -12,6 +15,7 @@
     "fix": ".\\vendor\\bin\\phpcbf src index.php config.php",
     "dockerize": "docker build -t urlshortener .",
     "devdb": "docker run --name dev-urlshortener-mysql -e MYSQL_ROOT_PASSWORD=securepassword -e MYSQL_DATABASE=urlshortener -e MYSQL_USER=usrlshorteneruser -e MYSQL_PASSWORD=anothersecurepassword -p 3306:3306 mysql:5.7",
+    "generateschema": "./vendor/bin/doctrine orm:schema-tool:create",
     "regendb": ".\\vendor\\bin\\doctrine orm:schema-tool:drop --force && .\\vendor\\bin\\doctrine orm:schema-tool:create",
     "run": "php -S 0.0.0.0:8000"
   }

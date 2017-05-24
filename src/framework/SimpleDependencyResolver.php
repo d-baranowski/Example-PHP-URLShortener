@@ -82,7 +82,7 @@ class SimpleDependencyResolver
                 return new SimpleResponseResolver();
             },
             'IndexController' => function() {
-                return new IndexController($this->get("TemplateResolver"));
+                return new IndexController($this->get("TemplateResolver"), $this->get('UrlMapRepository'));
             },
             'ShortenController' => function() {
                 return new ShortenController(

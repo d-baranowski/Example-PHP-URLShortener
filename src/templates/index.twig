@@ -1,11 +1,48 @@
 {% extends "layout.twig" %}
 
 {% block body %}
-My name is {{ name }}.
-My friends are:
-<ul>
-    {% for person in friends %}
-    <li>{{ person.firstname}} {{ person.lastname }}</li>
-    {% endfor %}
-</ul>
+    <div class="lead">Here is a list of currently shortened urls:</div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Long Url</th>
+                <th>Short Url</th>
+            </tr>
+        </thead>
+        <tbody id="js-ajax-update">
+        {% for map in urlMaps %}
+            <tr>
+                <td><a href="{{ map.longUrl}}">{{ map.longUrl}}</a></td>
+                <td><a href="{{ map.shortUrl}}">{{ map.shortUrl}}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    <form id="urlForm" class="form-inline" data-parsley-validate>
+                        <div class="form-group">
+                            <label id="labelForLongUrl" for="longUrl">Long Url</label>
+                            <input data-parsley-minlength="10"
+                                   pattern="\https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)"
+                                   required data-parsley-maxlength="999"
+                                   type="text"
+                                   class="form-control"
+                                   id="longUrl"
+                                   placeholder="http://google.com">
+                        </div>
+                        <button type="submit" class="btn btn-success">Add Pair</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><div class="text-danger" id="errorText"></div></td>
+            </tr>
+        </tfoot>
+    </table>
+{%endblock%}
+
+{%block scripts %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.7.2/parsley.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 {%endblock%}

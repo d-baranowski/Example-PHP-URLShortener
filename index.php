@@ -5,7 +5,6 @@
     use net\devtales\framework\ParsedRequest;
     use net\devtales\framework\SimpleDependencyResolver;
 
-
     $container = new SimpleDependencyResolver();
 
     $req = new ParsedRequest($_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);

@@ -10,38 +10,27 @@
 
     namespace net\devtales\controllers;
     use net\devtales\framework\TemplateResolver;
+    use net\devtales\repositories\iUrlMapRepository;
 
 
-
-class IndexController
+    class IndexController
 {
-    private $_templateResolver;
+    private $templateResolver;
+    private $repository;
 
-    public function __construct(TemplateResolver $templateResolver)
+    public function __construct(TemplateResolver $templateResolver, iUrlMapRepository $repository)
     {
-        $this->_templateResolver = $templateResolver;
+        $this->templateResolver = $templateResolver;
+        $this->repository = $repository;
     }
 
     public function base()
     {
-         $params = array(
-            'name' => 'Krzysztof',
-            'friends' => array(
-                array(
-                    'firstname' => 'John',
-                    'lastname' => 'Smith'
-                ),
-                array(
-                    'firstname' => 'Britney',
-                    'lastname' => 'Spears'
-                ),
-                array(
-                    'firstname' => 'Brad',
-                    'lastname' => 'Pitt'
-                )
-            )
+        $urlMaps = $this->repository->getAll();
+        $params = array(
+         'urlMaps' => $urlMaps
         );
 
-        $this->_templateResolver->display('index.twig', $params);
+        $this->templateResolver->display('index.twig', $params);
     }
 }

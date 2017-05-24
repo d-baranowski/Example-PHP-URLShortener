@@ -15,7 +15,7 @@ services:
       - db
     image: urlshortener:latest
     ports:
-      - "8000:80"
+      - "8000:8000"
     restart: always
     environment:
       URL_SHORTENER_DB_USER: usrlshorteneruser
