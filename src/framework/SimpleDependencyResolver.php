@@ -10,10 +10,13 @@
 
     namespace net\devtales\framework;
 
+    require_once $_SERVER['DOCUMENT_ROOT'] .'\vendor\autoload.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'\src\framework\SimpleResponseResolver.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'\src\framework\SimpleResponse.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'\src\framework\TemplateResolver.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'\src\controllers\IndexController.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'\src\controllers\ShortenController.php';
+
     use net\devtales\controllers\IndexController;
     use net\devtales\controllers\ShortenController;
     use Twig_Environment;

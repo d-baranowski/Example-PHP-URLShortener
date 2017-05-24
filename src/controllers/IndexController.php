@@ -11,7 +11,7 @@
     namespace net\devtales\controllers;
     use net\devtales\framework\TemplateResolver;
 
-    require_once $_SERVER['DOCUMENT_ROOT'] .'\vendor\autoload.php';
+
 
 class IndexController
 {

@@ -7,10 +7,6 @@
      */
 
     namespace net\devtales\controllers;
-    require_once $_SERVER['DOCUMENT_ROOT'] .'\vendor\autoload.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'\src\framework\SimpleResponseResolver.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'\src\framework\SimpleResponse.php';
-
 
     use net\devtales\framework\iSimpleResponseResolver;
     use net\devtales\framework\SimpleResponse;
@@ -28,7 +24,7 @@
         {
             if (array_key_exists('url',$requestParams)) {
                 $url = $requestParams['url'];
-                if (strlen($url) > 0 && strlen($url) < 999)
+                if (strlen($url) > 0 && strlen($url) < 100)
                 {
                     if (filter_var($url, FILTER_VALIDATE_URL))
                     {
